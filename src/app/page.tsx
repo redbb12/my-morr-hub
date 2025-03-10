@@ -1,101 +1,142 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React from 'react';
+import Link from 'next/link'; // ✅ Next.js Link 사용
+import { Button, Section, ProductCard } from '@/components';
+import Navbar from '@/components/Navbar';  // ✅ 네비게이션 바 추가
+import './globals.css';
+import Image from 'next/image';
+
+const products = [
+  {
+    title: 'AudienceMaster AI',
+    description: 'Advanced audience segmentation and targeting using AI',
+    icon: '/icons/audience.svg',
+    href: '/products/audiencemaster-ai' // ✅ 이동 경로 설정
+  },
+  {
+    title: 'CreativeGenius AI',
+    description: 'AI-driven content generation for personalized marketing',
+    icon: '/icons/creative.svg',
+    href: '/products/creativegenius-ai'
+  },
+  {
+    title: 'CampaignOptimizer AI',
+    description: 'Real-time campaign performance optimization',
+    icon: '/icons/campaign.svg',
+    href: '/products/campaignoptimizer-ai'
+  },
+  {
+    title: 'InsightDashboard AI',
+    description: 'Unified analytics and actionable insights',
+    icon: '/icons/insights.svg',
+    href: '/products/insightdashboard-ai'
+  }
+];
+
+import Hero from "@/components/Sections/Hero";
+import AboutUs from "@/components/Sections/About-Us";
+import Services from "@/components/Sections/Services";
+import Features from "@/components/Sections/Features";
+import CaseStudies from "@/components/Sections/casestudy";
+import Resources from "@/components/Sections/Resources";
+import ContactUs from "@/components/Sections/Contact-us";
+import Footer from '@/components/Sections/footer';
+
+
+const Homepage = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <main className="h-screen">
+      <Navbar />   {/* ✅ 네비게이션 바 추가 */}
+      
+      {/* 각 섹션에 id 추가 */}
+      <div id="hero">
+        <Hero />
+      </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Products Overview */}
+      <Section id="products" className="bg-white py-16">
+        <div className="container mx-auto px-6">
+          <h2 className="text-center text-3xl font-bold text-gray-900" style={{ fontFamily: 'Helvetica Neue' }}>Our AI-Powered Solutions</h2>
+
+          <p className="mt-4 text-xl text-gray-600 text-center">
+            Comprehensive tools for modern marketing
+          </p>
+          {/* 카드 UI (한 줄에 4개) */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-8">
+            {products.map((product, index) => (
+            <Link key={index} href={product.href} passHref>
+            <div className="p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-500 cursor-pointer flex flex-col items-start h-[300px]">
+              {/* 아이콘 영역 */}
+              <div className="w-full h-40 flex items-center justify-center bg-gray-200 rounded-lg animate-card-hover">
+                <Image 
+                  src={product.icon} 
+                  alt={product.title} 
+                  width={80} 
+                  height={80} 
+                  className="animate-image-hover"
+                />
+              </div>
+          
+              {/* 텍스트 영역 */}
+              <div className="mt-4 text-left flex-grow"> 
+                <h3 className="text-xl font-semibold text-gray-900">{product.title}</h3>
+                <p className="text-gray-600 mt-2">{product.description}</p>
+                
+                <span
+                  className={`text-[#b5002b] font-semibold hover:underline mt-2 sm:mt-6 md:mt-2 inline-block`} 
+                  // 모바일에서 mt-6으로 아래로 내리고, 데스크탑에서는 mt-2
+                >
+                  Read more →
+                </span>
+              </div>
+            </div>
+          </Link>       
+            ))}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        {/* 퍼센티지 정보 섹션 (아래로 내리고 30%를 오른쪽으로 이동) */}
+        <div className="container mx-auto mt-24">
+          <div className="flex justify-between w-full px-6">
+            {/* Reduce CAC by 25% (왼쪽 정렬) */}
+            <div className="text-center flex-1"> 
+              <h2 className="text-4xl font-bold text-[#B5002B]">25%</h2>
+              <p className="text-gray-600">Reduce CAC</p>
+            </div>
+
+            {/* Boost Engagement by 30% (오른쪽으로 이동) */}
+            <div className="text-center flex-1"> 
+              <h2 className="text-4xl font-bold text-[#B5002B]">30%</h2>
+              <p className="text-gray-600">Boost Engagement</p>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* Additional Sections */}
+      <div id="about-us">
+        <AboutUs />
+      </div>
+
+      <div id="features">
+        <Features />
+      </div>
+
+      <div id="case-studies">
+        <CaseStudies />
+      </div>
+
+      <div id="contact-us">
+        <ContactUs />
+      </div>
+
+      <div id="footer">
+        <Footer />
+      </div>
+
+    </main>
   );
-}
+};
+
+export default Homepage;
