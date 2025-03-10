@@ -7,6 +7,8 @@ import Navbar from "@/components/Navbar"; // ✅ 네비게이션 바 추가
 import "./globals.css";
 import Image from "next/image";
 
+//dkdkdkdk
+
 const products = [
   {
     id: "audiencemaster-ai",
