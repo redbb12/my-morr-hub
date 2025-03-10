@@ -11,22 +11,27 @@ function CaseStudies() {
           <div className="flex gap-10 flex-col mb-10 lg:mb-0">
             <div className="flex gap-4 flex-col">             
               <div className="flex gap-2 flex-col">
-                <h2 className="text-left text-3xl font-bold text-gray-900" style={{ fontFamily: 'Helvetica Neue' }}>Case Study</h2><br></br>                                    
+                <h2 className="text-left text-3xl font-bold text-gray-900" style={{ fontFamily: 'Helvetica Neue' }}>
+                  Case Study
+                </h2>
                 
                 {/* 새로운 Greensymphony 사례 */}
-                <p className="text-lg leading-relaxed tracking-wider text-muted-foreground max-w-xl text-left">
-                <span className="italic">Greensymphony</span>, a sustainable retail brand.
+                <p className="text-lg leading-relaxed tracking-wider text-muted-foreground max-w-xl text-left italic mb-4">
+                  Greensymphony, a sustainable retail brand.
                 </p>
-                <br></br>    
+                
+                <p className="text-lg leading-relaxed tracking-wider text-muted-foreground max-w-xl text-left mb-4">
+                  <strong>Challenge:</strong> High CPA and low engagement on social ads.
+                </p>
+                
+                <p className="text-lg leading-relaxed tracking-wider text-muted-foreground max-w-xl text-left mb-4">
+                  <strong>Solution:</strong> MORR’s AudienceMaster AI identified eco-conscious shoppers; 
+                  CreativeGenius AI generated tailored visuals; and CampaignOptimizer AI optimized bids.
+                </p>
+                
                 <p className="text-lg leading-relaxed tracking-wider text-muted-foreground max-w-xl text-left">
-                  <strong>Challenge:</strong> High CPA and low engagement on social ads.    
-                </p><br></br>    
-                <p className="text-lg leading-relaxed tracking-wider text-muted-foreground max-w-xl text-left">
-                  <strong>Solution:</strong> MORR’s AudienceMaster AI identified eco-conscious shoppers; CreativeGenius AI generated tailored visuals; and CampaignOptimizer AI optimized bids.
-                </p><br></br>    
-                <p className="text-lg leading-relaxed tracking-wider text-muted-foreground max-w-xl text-left">
-                  <strong>Result:</strong> 35% reduction in CPA, 40% increase in engagement.</p>
-               
+                  <strong>Result:</strong> 35% reduction in CPA, 40% increase in engagement.
+                </p>
               </div>
             </div>
           </div>
@@ -36,8 +41,8 @@ function CaseStudies() {
             <Image
               src="/ccchaos.svg" // 이미지 소스 설정
               alt="ccchaos image"
-              layout="fill" // 부모 박스를 꽉 채우도록 설정
-              objectFit="cover" // 이미지가 비율을 유지하며 꽉 차게 설정
+              fill // ✅ Next.js 13 이상: layout="fill" 대신 fill 사용
+              style={{ objectFit: "cover" }} // ✅ Next.js 13 이상: objectFit 대신 style 사용
               className="animate-float" // 애니메이션 효과 추가
             />
           </div>

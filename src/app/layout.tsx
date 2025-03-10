@@ -2,6 +2,7 @@
 import { ReactNode } from "react";
 import "./globals.css";
 import CaseStudies from "@/components/Sections/casestudy"; // ✅ CaseStudies 추가
+import Navbar from '@/components/Navbar';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

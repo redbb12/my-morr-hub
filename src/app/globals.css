@@ -180,7 +180,10 @@
 
   .animate-rotate {
     animation: rotate 10s linear infinite; /* Rotate infinitely over 10 seconds */
-  } 
+  }
+  
+  
+  
 
   /* 카드 이미지 회전 애니메이션 */
   @keyframes rotateImage {
