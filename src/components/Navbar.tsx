@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation"; // ✅ Next.js 15 방식
 import { animateScroll as scroll, scroller } from "react-scroll";
 import { Book, Sunset, Trees, Zap, Menu } from "lucide-react";
@@ -21,6 +21,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+
 const Navbar = () => {
   const pathname = usePathname(); // ✅ 현재 경로 가져오기
   const router = useRouter(); // ✅ Next.js 라우터 사용
@@ -37,6 +38,8 @@ const Navbar = () => {
     }
   }, [pathname]);
 
+  const [open, setOpen] = useState(false); // ✅ Sheet(햄버거 메뉴) 상태 관리
+
   // ✅ 페이지 이동 후 스크롤 처리
   const handleNavigation = (id: string) => {
     if (pathname === "/") {
@@ -48,7 +51,9 @@ const Navbar = () => {
     } else {
       router.push(`/#${id}`);
     }
+    setOpen(false); // ✅ 메뉴 클릭 후 햄버거 메뉴 닫기
   };
+  
 
   return (
     <header className="w-full border-b bg-white shadow-md fixed top-0 z-50">
@@ -155,74 +160,94 @@ const Navbar = () => {
         </nav>
 
         {/* 모바일 메뉴 (ShadCN Sheet 사용) */}
-        <Sheet>
+        <Sheet open={open} onOpenChange={setOpen}>
+
           <SheetTrigger asChild>
             <Button variant="outline" size="icon" className="lg:hidden">
               <Menu className="size-4" />
             </Button>
           </SheetTrigger>
-          <SheetContent className="p-0"> {/* ✅ 내부 여백 제거 */}
-          <SheetHeader className="px-4 py-3">
-            <SheetTitle className="text-left">Menu</SheetTitle>
-          </SheetHeader>
-          <div className="mt-0 flex flex-col items-start text-lg w-full"> {/* ✅ 여백 최소화 */}
-            <button onClick={() => handleNavigation("products")} className="w-fit px-4 py-3 text-left">
-              Products
-            </button>
-            <button onClick={() => handleNavigation("features")} className="w-fit px-4 py-3 text-left">
-              Features
-            </button>
-            <button onClick={() => handleNavigation("about-us")} className="w-fit px-4 py-3 text-left">
-              About Us
-            </button>          
+          <SheetContent className="p-0 w-full max-w-sm max-h-screen overflow-y-auto"> {/* ✅ 최대 너비 조정 */}
             
-            <button onClick={() => handleNavigation("casestudy")} className="w-fit px-4 py-3 text-left">
-              Case Study
-            </button>
-            <button onClick={() => handleNavigation("contact-us")} className="w-fit px-4 py-2 bg-black text-white rounded-md hover:bg-gray-200 hover:text-black text-center ml-60">            
-              Contact Us
-            </button>
-
-            <div className="border-t border-gray-300 w-full my-2"></div>
-
-            <SheetHeader className="px-4 py-3">
-              <SheetTitle className="text-left">Solutions</SheetTitle>
+            {/* ✅ Menu 아래 보더 추가 */}
+            <SheetHeader className="px-6 py-4 border-b">
+              <SheetTitle className="text-left text-xl font-semibold">Menu</SheetTitle>
             </SheetHeader>
 
-            <button onClick={() => router.push("/solutions/growthaccelerator")} className="w-fit px-4 py-3 text-left">
-              GrowthAccelerator
-            </button>
-            <button onClick={() => router.push("/solutions/creativestudio")} className="w-fit px-4 py-3 text-left">
-              CreativeStudio
-            </button>
-            <button onClick={() => router.push("/solutions/agencyhub")} className="w-fit px-4 py-3 text-left">
-              AgencyHub
-            </button>
-            <button onClick={() => router.push("/solutions/smbboost")} className="w-fit px-4 py-3 text-left">
-              SMBBoost
-            </button>
+            <div className="flex flex-col items-start text-lg w-full space-y-2 px-6 py-4">
+              {/* ✅ 모든 버튼을 왼쪽 정렬 (text-left) */}
+              <button onClick={() => handleNavigation("products")} className="px-6 py-4 text-left rounded-md ml-[-20px]">
+                Products
+              </button>
+              <button onClick={() => handleNavigation("features")} className="px-6 py-4 text-left rounded-md ml-[-20px]">
+                Features
+              </button>
+              <button onClick={() => handleNavigation("about-us")} className="px-6 py-4 text-left rounded-md ml-[-20px]">
+                About Us
+              </button>
+              <button onClick={() => handleNavigation("casestudy")} className="px-6 py-4 text-left rounded-md ml-[-20px]">
+                Case Study
+              </button>
 
-            <div className="border-t border-gray-300 w-full my-2"></div>
+              {/* ✅ Contact Us 버튼도 동일한 스타일로 맞춤 */}
+              <button 
+                onClick={() => handleNavigation("contact-us")} 
+                className="px-6 py-4 text-left bg-black text-white rounded-md hover:bg-gray-200 hover:text-black ml-auto">
+                Contact Us
+              </button>
 
-            <SheetHeader className="px-4 py-3">
-              <SheetTitle className="text-left">Product</SheetTitle>
+            </div>
+
+            {/* ✅ Solutions 섹션 위 보더 추가 */}
+            <div className="border-t border-gray-300 w-full"></div>
+            
+            <SheetHeader className="px-6 py-4 border-b">
+              <SheetTitle className="text-left text-lg font-semibold">Solutions</SheetTitle>
             </SheetHeader>
 
-            <button onClick={() => router.push("/products/audiencemaster-ai")} className="w-fit px-4 py-3 text-left">
-              AudienceMaster AI
-            </button>
-            <button onClick={() => router.push("/products/creativegenius-ai")} className="w-fit px-4 py-3 text-left">
-              CreativeGenius AI
-            </button>
-            <button onClick={() => router.push("/products/campaignoptimizer-ai")} className="w-fit px-4 py-3 text-left">
-              CampaignOptimizer AI
-            </button>
-            <button onClick={() => router.push("/products/insightdashboard-ai")} className="w-fit px-4 py-3 text-left">
-              InsightDashboard AI
-            </button>
-          </div>
-        </SheetContent>
+            <div className="flex flex-col items-start text-lg w-full space-y-2 px-6 py-4">
+              <button onClick={() => router.push("/solutions/growthaccelerator")} className="px-6 py-4 text-left rounded-md ml-[-20px]">
+                GrowthAccelerator
+              </button>
+              <button onClick={() => router.push("/solutions/creativestudio")} className="px-6 py-4 text-left rounded-md ml-[-20px]">
+                CreativeStudio
+              </button>
+              <button onClick={() => router.push("/solutions/agencyhub")} className="px-6 py-4 text-leftrounded-md ml-[-20px]">
+                AgencyHub
+              </button>
+              <button onClick={() => router.push("/solutions/smbboost")} className="px-6 py-4 text-left rounded-md ml-[-20px]">
+                SMBBoost
+              </button>
+            </div>
+
+            {/* ✅ Product 섹션 위 보더 추가 */}
+            <div className="border-t border-gray-300 w-full"></div>
+
+            <SheetHeader className="px-6 py-4 border-b">
+              <SheetTitle className="text-left text-lg font-semibold">Product</SheetTitle>
+            </SheetHeader>
+
+            <div className="flex flex-col items-start text-lg w-full space-y-2 px-6 py-4">
+              <button onClick={() => router.push("/products/audiencemaster-ai")} className="px-6 py-4 text-left hover:bg-gray-200 rounded-md ml-[-20px]">
+                AudienceMaster AI
+              </button>
+              <button onClick={() => router.push("/products/creativegenius-ai")} className="px-6 py-4 text-left rounded-md ml-[-20px]">
+                CreativeGenius AI
+              </button>
+              <button onClick={() => router.push("/products/campaignoptimizer-ai")} className="px-6 py-4 text-left rounded-md ml-[-20px]">
+                CampaignOptimizer AI
+              </button>
+              <button onClick={() => router.push("/products/insightdashboard-ai")} className="px-6 py-4 text-left rounded-md ml-[-20px]">
+                InsightDashboard AI
+              </button>
+            </div>
+
+            {/* ✅ Product 섹션 아래 보더 추가 */}
+            <div className="border-t border-gray-300 w-full"></div>
+          </SheetContent>
         </Sheet>
+
+
       </div>
     </header>
   );

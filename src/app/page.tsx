@@ -7,9 +7,6 @@ import Navbar from "@/components/Navbar"; // ✅ 네비게이션 바 추가
 import "./globals.css";
 import Image from "next/image";
 
-//dkdkdkdk
-//sadsad
-
 const products = [
   {
     id: "audiencemaster-ai",
@@ -45,7 +42,7 @@ import Hero from "@/components/Sections/Hero";
 import AboutUs from "@/components/Sections/About-Us";
 import Services from "@/components/Sections/Services";
 import Features from "@/components/Sections/Features";
-import CaseStudies from "@/components/Sections/casestudy";
+import Casestudy from "@/components/Sections/casestudy";
 import Resources from "@/components/Sections/Resources";
 import ContactUs from "@/components/Sections/Contact-us";
 import Footer from "@/components/Sections/footer";
@@ -135,8 +132,8 @@ const Homepage = () => {
         <Features />
       </div>
 
-      <div id="case-studies">
-        <CaseStudies />
+      <div id="casestudy">
+        <Casestudy />
       </div>
 
       <div id="contact-us">
